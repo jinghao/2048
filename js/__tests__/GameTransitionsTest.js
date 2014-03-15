@@ -1,4 +1,22 @@
 var GameTransitions = require('../GameTransitions');
+var Directions = GameTransitions.Directions;
+
+describe('move', function() {
+  [
+    { // nothing to do
+      state: [0x00000000, 0x00000000],
+      direction: Directions.UP,
+      expectedState: [0x00000000, 0x00000000]
+    }
+  ].forEach(function(testInput) {
+    it('test', function() {
+      expect(GameTransitions.move(
+        testInput.state,
+        testInput.direction
+      )).toEqual(testInput.expectedState);
+    });
+  });
+});
 
 describe('getValue', function() {
   [
