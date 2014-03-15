@@ -54,9 +54,6 @@ var GameTransitions = {
   }
 };
 
-// Just for the test
-if (module) {
-  GameTransitions.Directions = Directions;
+GameTransitions.Directions = Directions;
 
-  module.exports = GameTransitions;
-}
+module.exports = GameTransitions;

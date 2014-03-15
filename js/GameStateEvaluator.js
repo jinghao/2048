@@ -35,6 +35,4 @@ var GameStateEvaluator = {
   }
 };
 
-if (module) {
-  module.exports = GameStateEvaluator;
-}
+module.exports = GameStateEvaluator;

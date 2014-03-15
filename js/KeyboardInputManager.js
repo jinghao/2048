@@ -90,3 +90,5 @@ KeyboardInputManager.prototype.restart = function (event) {
   event.preventDefault();
   this.emit("restart");
 };
+
+module.exports = KeyboardInputManager;
