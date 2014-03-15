@@ -4,7 +4,7 @@ var Tile = require('../tile');
 describe('getState', function() {
   it('should throw an exception if the grid is not 4x4', function() {
     expect(function() {
-      grid = new Grid(3);
+      var grid = new Grid(3);
       grid.getState();
     }).toThrow();
   });
@@ -60,7 +60,7 @@ describe('getState', function() {
   ].forEach(function(testInput) {
     it('tests ' + testInput.cells, function() {
       // Create a grid and insert tiles as specified by testInput.cells
-      grid = new Grid(4);
+      var grid = new Grid(4);
       grid.eachCell(function(x, y, cell) {
         if (testInput.cells[x][y]) {
           var tile = new Tile({x: x, y: y}, testInput.cells[x][y]);

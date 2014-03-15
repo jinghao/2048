@@ -90,34 +90,37 @@ Grid.prototype.getState = function() {
     throw 'State undefined for grid of size ' + this.size;
   }
 
-  cellsPerState = 8;
-  maxCellVal = 16;
-
-  state1 = 0x00000000;
-  state2 = 0x00000000;
+  var state1 = 0x00000000;
+  var state2 = 0x00000000;
 
   // Go through each cell, adding the log2 of its tile's value (if present) to state1
   // or state2
-  for (stateX = 0; stateX < this.size; stateX++) {
-    for (stateY = 0; stateY < this.size; stateY++) {
+  for (var stateX = 0; stateX < this.size; stateX++) {
+    for (var stateY = 0; stateY < this.size; stateY++) {
       // (x = 0, y = 0) is the top left
       // (stateX = 0, stateY = 0) is the bottom left
-      x = stateX;
-      y = this.size - 1 - stateY;
+      var x = stateX;
+      var y = this.size - 1 - stateY;
 
-      val = this.cells[x][y] ? Math.log(this.cells[x][y].value)/Math.log(2) : 0;
-      offset = stateY * this.size + stateX;
+      var val = this.cells[x][y] ?
+        Math.log(this.cells[x][y].value)/Math.log(2) : 
+        0;
+      var offset = stateY * this.size + stateX;
 
-      if (offset < cellsPerState) {
-        state1 += (val * Math.pow(maxCellVal, offset));
+      if (offset < Grid.CELLS_PER_STATE) {
+        state1 += (val * Math.pow(Grid.MAX_CELL_VAL, offset));
       } else {
-        state2 += (val * Math.pow(maxCellVal, offset - cellsPerState));
+        state2 += (val * Math.pow(Grid.MAX_CELL_VAL, offset - Grid.CELLS_PER_STATE));
       }
     }
   }
 
   return [state1, state2];
 }
+
+// TODO: Move to other file
+Grid.CELLS_PER_STATE = 8;
+Grid.MAX_CELL_VAL = 16;
 
 if (module) {
   module.exports = Grid;

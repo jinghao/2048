@@ -27,7 +27,7 @@ describe('getScorePair', function() {
       expect(GameStateEvaluator.getScorePair(
         testInput.val1,
         testInput.val2
-        )).toEqual(testInput.expected);
+      )).toEqual(testInput.expected);
     });
   });
 });
