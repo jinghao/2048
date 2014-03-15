@@ -6,4 +6,5 @@
 
 ## Building the Bundle
 
-Run `browserify js/application.js -o js/bundle.js`
+* Install browserify (http://browserify.org/): `sudo npm install -g browserify`
+* Run `browserify js/application.js -o js/bundle.js` to see the latest Javascript in the browser.
