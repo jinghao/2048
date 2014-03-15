@@ -122,6 +122,6 @@ Grid.prototype.getState = function() {
 Grid.CELLS_PER_STATE = 8;
 Grid.MAX_CELL_VAL = 16;
 
-if (module) {
+if (typeof module !== 'undefined') {
   module.exports = Grid;
 }
