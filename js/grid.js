@@ -103,7 +103,7 @@ Grid.prototype.getState = function() {
       var y = this.size - 1 - stateY;
 
       var val = this.cells[x][y] ?
-        Math.log(this.cells[x][y].value)/Math.log(2) : 
+        Math.log(this.cells[x][y].value)/Math.log(2) :
         0;
       var offset = stateY * this.size + stateX;
 
