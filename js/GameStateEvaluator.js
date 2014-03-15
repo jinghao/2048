@@ -14,16 +14,20 @@ var GameStateEvaluator = {
     // Compare neighbors to the right.
     for (var xpos = 0; xpos < 3; xpos++) {
       for (var ypos = 0; ypos <= 3; ypos++) {
-        score += GameStateEvaluator.getScorePair(GameTransitions.getValue(state, xpos,ypos),
-                                                 GameTransitions.getValue(state, xpos + 1, ypos));
+        score += GameStateEvaluator.getScorePair(
+          GameTransitions.getValue(state, xpos,ypos),
+          GameTransitions.getValue(state, xpos + 1, ypos)
+        );
       }
     }
 
     // Compare neighbors above.
     for (var xpos = 0; xpos <= 3; xpos++) {
       for (var ypos = 0; ypos < 3; ypos++) {
-        score += GameStateEvaluator.getScorePair(GameTransitions.getValue(state, xpos,ypos),
-                                                 GameTransitions.getValue(state, xpos, ypos + 1));
+        score += GameStateEvaluator.getScorePair(
+          GameTransitions.getValue(state, xpos,ypos),
+          GameTransitions.getValue(state, xpos, ypos + 1)
+        );
       }
     }
 
