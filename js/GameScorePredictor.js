@@ -12,29 +12,27 @@ var GameScorePredictor = {
     var scorePrediction = 0;
     for (var potentialOutcome in
         GameScorePredictor.getPotentialOutcomes(state, move)) {
-          var potentialState = potentialOutcome.state;
-          var chance = potentialOutcome.chance;
-
-          var scorePredictions = [];
-          if (depth >= 0) {
-            for (var potentialMove in Directions) {
-              var nextScorePrediction = GameScorePredictor.predictScore(
-                potentialState,
-                potentialMove,
-                depth - 1
-                );
-              if (nextScorePrediction) {
-                scorePredictions.push(nextScorePrediction);
-              }
-            }
-          } else {
-            scorePredictions.push(GameStateEvaluator.getScore(potentialState));
+      var potentialState = potentialOutcome.state;
+      var chance = potentialOutcome.chance;
+      var scorePredictions = [];
+      if (depth >= 0) {
+        for (var potentialMove in Directions) {
+          var nextScorePrediction = GameScorePredictor.predictScore(
+            potentialState,
+            potentialMove,
+            depth - 1
+            );
+          if (nextScorePrediction) {
+            scorePredictions.push(nextScorePrediction);
           }
-
-          scorePrediction += GameScoreEvaluator.getBestScore(scorePredictions) *
-            chance;
+        }
+      } else {
+        scorePredictions.push(GameStateEvaluator.getScore(potentialState));
       }
-      return scorePrediction;
+      scorePrediction += GameScoreEvaluator.getBestScore(scorePredictions) *
+        chance;
+    }
+    return scorePrediction;
   }
 }
 

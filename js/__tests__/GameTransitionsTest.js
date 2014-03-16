@@ -162,7 +162,6 @@ describe('isMoveInvalid', function() {
         return testInput.movedState;
       };
 
-      // Test is pending completion of GameTransitions.move
       expect(GameTransitions.isMoveInvalid(
         testInput.state,
         testInput.move
