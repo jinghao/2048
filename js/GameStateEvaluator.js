@@ -1,4 +1,22 @@
 var GameTransitions = require('./GameTransitions');
+var Grid = require('./Grid');
+
+var GRID_SIZE = 4; // Put this somewhere meaningful too
+
+var maxState = [0x0, 0x0];
+// Make every other cell the max value
+for (var x = 0; x < GRID_SIZE; x++) {
+  for (var y = 0; y < GRID_SIZE; y++) {
+    if ((Math.abs(x - y) % 2) == 1) {
+      maxState = GameTransitions.insertTile(
+        maxState,
+        Grid.MAX_CELL_VAL - 1,  // Need to fix constant
+        x,
+        y
+      );
+    }
+  }
+}
 
 var GameStateEvaluator = {
   // Return the score of a pair of squares.
@@ -32,7 +50,20 @@ var GameStateEvaluator = {
     }
 
     return score;
-  }
+  },
+
+  // Return the best score in the list (the lowest)
+  // If it's empty, return the max score
+  getBestScore: function(scores) {
+    if (scorePredictions.length == 0) {
+      return GameStateEvaluator.maxScore;
+    } else {
+      return Math.min.apply(Math, scores);
+    }
+  },
 };
+
+// Max possible score
+GameStateEvaluator.maxScore = GameStateEvaluator.getScore(maxState);
 
 module.exports = GameStateEvaluator;
