@@ -37,7 +37,7 @@ describe('getState', function() {
         [null, null, null, null],
         [2, null, null, null]
       ],
-      expected: [0x00000000, 0x10000000]
+      expected: [0x10000000, 0x00000000]
     },
     {
       cells: [
@@ -46,7 +46,7 @@ describe('getState', function() {
         [null, null, null, null],
         [null, null, 2, null]
       ],
-      expected: [0x10000003, 0x00000000]
+      expected: [0x00000000, 0x10000003]
     },
     {
       cells: [
@@ -55,7 +55,7 @@ describe('getState', function() {
         [null, null, null, null],
         [null, 4, 4, 8]
       ],
-      expected: [0x2000300b, 0x00022000]
+      expected: [0x00022000, 0x2000300b]
     }
   ].forEach(function(testInput) {
     it('tests ' + testInput.cells, function() {

@@ -108,9 +108,9 @@ Grid.prototype.getState = function() {
       var offset = stateY * this.size + stateX;
 
       if (offset < Grid.CELLS_PER_STATE) {
-        state1 += (val * Math.pow(Grid.MAX_CELL_VAL, offset));
+        state2 += (val * Math.pow(Grid.MAX_CELL_VAL, offset));
       } else {
-        state2 += (val * Math.pow(Grid.MAX_CELL_VAL, offset - Grid.CELLS_PER_STATE));
+        state1 += (val * Math.pow(Grid.MAX_CELL_VAL, offset - Grid.CELLS_PER_STATE));
       }
     }
   }
