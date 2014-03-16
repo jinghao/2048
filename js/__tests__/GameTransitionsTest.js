@@ -16,6 +16,12 @@ describe('move', function() {
       )).toEqual(testInput.expectedState);
     });
   });
+
+  it('Tests move handles invalid direction', function() {
+    expect(function() {
+      GameTransitions.move([0, 0], -1);
+    }).toThrow();
+  })
 });
 
 describe('insertTile', function() {

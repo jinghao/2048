@@ -24,7 +24,7 @@ var GameTransitions = {
         dx = 1;
         break;
       default:
-        console.warn("This is a bug");
+        throw 'Invalid direction';
     }
 
     var startX = 0, startY = 0, endX = 3, endY = 3;
