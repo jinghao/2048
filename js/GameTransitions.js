@@ -1,9 +1,4 @@
-var Directions = {
-  UP: 0,
-  DOWN: 1,
-  LEFT: 2,
-  RIGHT: 3
-};
+var Directions = require('./Directions');
 
 var GameTransitions = {
   move: function(currentState, direction) {
@@ -53,7 +48,5 @@ var GameTransitions = {
     return (state[offset >= 8 ? 0 : 1] >> (offset * 4)) & 0xF;
   }
 };
-
-GameTransitions.Directions = Directions;
 
 module.exports = GameTransitions;

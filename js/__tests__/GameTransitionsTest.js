@@ -1,5 +1,5 @@
 var GameTransitions = require('../GameTransitions');
-var Directions = GameTransitions.Directions;
+var Directions = require('../Directions');
 
 describe('move', function() {
   [
