@@ -38,7 +38,7 @@ var GameTransitions = {
 
     for (var x = startX; x != endX; x += dx) {
       for (var y = startY; y != endY; y += dy) {
-
+        var valueAtPos = GameTransitions.getValue(newState, x, y);
       }
     }
 
