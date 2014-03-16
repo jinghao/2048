@@ -129,28 +129,49 @@ describe('isMoveInvalid', function() {
     {
       desc: '0x00000000, 0x00000001, LEFT',
       state: [0x00000000, 0x00000001],
+      movedState: [0x00000000, 0x00000001],
       move: Directions.LEFT,
       expected: true
     },
     {
       desc: '0x00000000, 0x00000001, UP',
       state: [0x00000000, 0x00000001],
+      movedState: [0x00010000, 0x00000000],
       move: Directions.UP,
       expected: false
     },
     {
       desc: '0x00000000, 0x00010001, LEFT',
-      state: [0x00000000, 0x00010001],
+      state: [0x00000000, 0x00000011],
+      movedState: [0x00000000, 0x00000002],
       move: Directions.LEFT,
       expected: false
     }
   ].forEach(function(testInput) {
-    xit('test: ' + testInput.desc, function() {
+    it('test: ' + testInput.desc, function() {
+      var numCallsToMove = 0;
+
+      var moveBackup = GameTransitions.move;
+
+      GameTransitions.move = function(currentState, direction) {
+        expect(direction).toBe(testInput.move);
+        expect(currentState).toBe(testInput.state);
+
+        ++numCallsToMove;
+
+        return testInput.movedState;
+      };
+
       // Test is pending completion of GameTransitions.move
       expect(GameTransitions.isMoveInvalid(
         testInput.state,
         testInput.move
       )).toEqual(testInput.expected);
+
+      // We shouldn't have to compute the same move twice
+      expect(numCallsToMove).toBe(1);
+
+      GameTransitions.move = moveBackup;
     });
   });
 });

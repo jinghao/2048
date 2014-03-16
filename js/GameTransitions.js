@@ -81,8 +81,9 @@ var GameTransitions = {
   // A move is invalid if the state after moving is the same as
   // before moving
   isMoveInvalid: function(state, move) {
-    return (GameTransitions.move(state, move)[0] == state[0] &&
-      GameTransitions.move(state, move)[1] == state[1]);
+    var movedState = GameTransitions.move(state, move);
+
+    return (movedState[0] == state[0] && movedState[1] == state[1]);
   },
 
   // Return the positions of cells that are empty
