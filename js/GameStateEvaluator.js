@@ -8,7 +8,7 @@ var maxState = [0x0, 0x0];
 for (var x = 0; x < GRID_SIZE; x++) {
   for (var y = 0; y < GRID_SIZE; y++) {
     if ((Math.abs(x - y) % 2) == 1) {
-      maxState = GameTransitions.insertTile(
+      GameTransitions.insertTile(
         maxState,
         Grid.MAX_CELL_VAL - 1,  // Need to fix constant
         x,

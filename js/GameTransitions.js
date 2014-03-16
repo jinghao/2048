@@ -45,7 +45,7 @@ var GameTransitions = {
     return newState;
   },
 
-  // Insert a tile at position x, y
+  // Insert a tile at position x, y. Mutates
   insertTile: function(state, val, x, y) {
     if (val <= 0 || val > Grid.MAX_CELL_VAL - 1) {
       throw 'Cannot insert tile with value ' + val;
@@ -58,18 +58,13 @@ var GameTransitions = {
     }
 
     var offset = y * GRID_SIZE + x;
-    var newState;
 
     if (offset >= Grid.CELLS_PER_STATE) {
-      newState = [state[0] +
-                    (val * Math.pow(Grid.MAX_CELL_VAL,
-                                    offset - Grid.CELLS_PER_STATE)),
-                  state[1]];
+      state[0] += (val * Math.pow(Grid.MAX_CELL_VAL,
+                                    offset - Grid.CELLS_PER_STATE));
     } else {
-      newState = [state[0], state[1] +
-                    (val * Math.pow(Grid.MAX_CELL_VAL, offset))];
+      state[1] += (val * Math.pow(Grid.MAX_CELL_VAL, offset));
     }
-    return newState;
   },
 
   getValue: function(state, xpos, ypos) {

@@ -76,14 +76,20 @@ describe('insertTile', function() {
   ].forEach(function(testInput) {
     it('tests ' + testInput.state[0].toString(16) + ' ' +
        testInput.state[1].toString(16) + ' ' + testInput.val,
-       function() {
-        expect(GameTransitions.insertTile(
-          testInput.state,
+      function() {
+        // clone it
+        var modifiedState = testInput.state.slice(0);
+
+        GameTransitions.insertTile(
+          modifiedState,
           testInput.val,
           testInput.xpos,
           testInput.ypos
-        )).toEqual(testInput.expectedState);
-       });
+        );
+
+        expect(modifiedState).toEqual(testInput.expectedState);
+      }
+    );
   })
 })
 
