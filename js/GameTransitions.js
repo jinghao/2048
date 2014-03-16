@@ -5,40 +5,45 @@ var GRID_SIZE = 4;  // TO-DO: Put this somewhere meaningful.
 
 var GameTransitions = {
   move: function(currentState, direction) {
-    var newState = [currentState[0], currentState[1]];
+    var newState = [0, 0];
 
-    // the direction of the loop
-    var dx = 1, dy = 1;
+    // should iterate toward the origin
+    var backwards = 
+      direction === Directions.UP || direction === Directions.RIGHT;
 
-    switch (direction) {
-      case Directions.UP:
-        dy = 1;
-        break;
-      case Directions.DOWN:
-        dy = -1;
-        break;
-      case Directions.LEFT:
-        dx = -1;
-        break;
-      case Directions.RIGHT:
-        dx = 1;
-        break;
-      default:
-        throw 'Invalid direction';
-    }
+    var isVerticalMove =
+      direction === Directions.UP || direction === Directions.DOWN;
 
-    var startX = 0, startY = 0, endX = 3, endY = 3;
-    if (dx === -1) {
-      startX = 3;
-      endX = 0;
-    } else if (dy === -1) {
-      startY = 3;
-      endY = 0;
-    }
+    var dj = backwards ? -1 : 1;
 
-    for (var x = startX; x != endX; x += dx) {
-      for (var y = startY; y != endY; y += dy) {
-        var valueAtPos = GameTransitions.getValue(newState, x, y);
+    // Loop in direction perpendicular to "direction". Can be in any order
+    for (var i = 0; i < GRID_SIZE; ++i) {
+      var lastPos = backwards ? GRID_SIZE : -1;
+      var lastPosValue = null; // not used yet
+
+      for (var j = 0; j < GRID_SIZE; ++j) {
+        var x, y;
+        if (isVerticalMove) {
+          x = i;
+          y = backwards ? GRID_SIZE - 1 - j : j;
+        } else {
+          y = i;
+          x = backwards ? GRID_SIZE - 1 - j : j;
+        }
+
+        var valueAtPos = GameTransitions.getValue(currentState, x, y);
+
+        if (valueAtPos) {
+          if (isVerticalMove) {
+            lastPos += dj;
+            GameTransitions.insertTile(newState, valueAtPos, x, lastPos)
+          } else {
+            lastPos += dj;
+            GameTransitions.insertTile(newState, valueAtPos, lastPos, y);
+          }
+
+          lastPosValue = valueAtPos; // not used yet
+        }
       }
     }
 

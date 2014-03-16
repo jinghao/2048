@@ -7,6 +7,21 @@ describe('move', function() {
       state: [0x00000000, 0x00000000],
       direction: Directions.UP,
       expectedState: [0x00000000, 0x00000000]
+    },
+    { // no change, everything already on top-right corner
+      state: [0x10000000, 0x00000000],
+      direction: Directions.UP,
+      expectedState: [0x10000000, 0x00000000]
+    },
+    { // no change, everything already on top-right corner
+      state: [0x10000000, 0x00000000],
+      direction: Directions.RIGHT,
+      expectedState: [0x10000000, 0x00000000]
+    },
+    { // no change, everything already on top-right corner
+      state: [0x10020600, 0x00000040],
+      direction: Directions.UP,
+      expectedState: [0x16420000, 0x00000000]
     }
   ].forEach(function(testInput) {
     it('test', function() {
@@ -16,12 +31,6 @@ describe('move', function() {
       )).toEqual(testInput.expectedState);
     });
   });
-
-  it('Tests move handles invalid direction', function() {
-    expect(function() {
-      GameTransitions.move([0, 0], -1);
-    }).toThrow();
-  })
 });
 
 describe('insertTile', function() {
