@@ -65,3 +65,43 @@ describe('getScore', function() {
     });
   });
 });
+
+describe('maxScore', function() {
+  expectedMaxScore = (5 * 2 + 7 * 2) * Math.pow(2, 15);
+  it('maxScore', function() {
+    expect(GameStateEvaluator.maxScore).
+      toEqual(expectedMaxScore);
+  })
+})
+
+describe('getBestScore', function() {
+  var maxScoreBackup = GameStateEvaluator.maxScore;
+
+  beforeEach(function() {
+    GameStateEvaluator.maxScore = 12345;
+  });
+
+  afterEach(function() {
+    GameStateEvaluator.maxScore = maxScoreBackup;
+  });
+
+  [
+    {
+      scores: [1, 1, 2],
+      expected: 1
+    },
+    {
+      scores: [2, 1],
+      expected: 1
+    },
+    {
+      scores: [],
+      expected: 12345
+    }
+  ].forEach(function(testInput) {
+    it('tests ' + testInput.scores.toString(), function() {
+      expect(GameStateEvaluator.getBestScore(testInput.scores)).
+        toEqual(testInput.expected);
+    });
+  });
+});

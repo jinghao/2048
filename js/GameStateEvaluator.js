@@ -55,7 +55,7 @@ var GameStateEvaluator = {
   // Return the best score in the list (the lowest)
   // If it's empty, return the max score
   getBestScore: function(scores) {
-    if (scorePredictions.length == 0) {
+    if (scores.length == 0) {
       return GameStateEvaluator.maxScore;
     } else {
       return Math.min.apply(Math, scores);
