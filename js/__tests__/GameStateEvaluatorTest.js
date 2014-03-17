@@ -67,10 +67,10 @@ describe('getScore', function() {
 });
 
 describe('maxScore', function() {
-  expectedMaxScore = (5 * 2 + 7 * 2) * Math.pow(2, 15);
   it('maxScore', function() {
-    expect(GameStateEvaluator.maxScore).
-      toEqual(expectedMaxScore);
+    var expectedMaxScore = (5 * 2 + 7 * 2) * Math.pow(2, 15);
+    expect(GameStateEvaluator.maxScore)
+      .toEqual(expectedMaxScore);
   })
 })
 
@@ -100,8 +100,8 @@ describe('getBestScore', function() {
     }
   ].forEach(function(testInput) {
     it('tests ' + testInput.scores.toString(), function() {
-      expect(GameStateEvaluator.getBestScore(testInput.scores)).
-        toEqual(testInput.expected);
+      expect(GameStateEvaluator.getBestScore(testInput.scores))
+        .toEqual(testInput.expected);
     });
   });
 });
