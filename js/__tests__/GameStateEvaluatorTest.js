@@ -60,8 +60,24 @@ describe('getScore', function() {
     }
   ].forEach(function(testInput) {
     it('tests ' + testInput.state.toString(), function() {
+      var getScorePairBackup = GameStateEvaluator.getScorePair;
+
+      GameStateEvaluator.getScorePair = function(val1, val2) {
+        var scorePairs = {
+          0: {0: 1, 1: 2, 2: 4, 4: 16},
+          1: {0: 2, 1: 1, 2: 2, 4: 8},
+          2: {0: 4, 1: 2, 2: 1, 4: 4},
+          4: {0: 16, 1: 8, 2: 4, 4: 1}
+        }
+
+        var scorePair = scorePairs[val1][val2];
+        return scorePair;
+      };
+
       expect(GameStateEvaluator.getScore(testInput.state)).
         toEqual(testInput.expected);
+
+      GameStateEvaluator.getScorePair = getScorePairBackup;
     });
   });
 });
