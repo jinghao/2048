@@ -120,6 +120,7 @@ Grid.prototype.getState = function() {
 
 // TODO: Move to other file
 Grid.CELLS_PER_STATE = 8;
-Grid.MAX_CELL_VAL = 15;
+Grid.OFFSET_PER_TILE = 4;
+Grid.MAX_CELL_VAL = (1 << Grid.OFFSET_PER_TILE) - 1;
 
 module.exports = Grid;

@@ -73,9 +73,9 @@ var GameTransitions = {
   },
 
   getValue: function(state, xpos, ypos) {
-    var offset = (ypos * 4 + xpos);
+    var offset = (ypos * GRID_SIZE + xpos);
 
-    return (state[offset >= 8 ? 0 : 1] >> (offset * 4)) & 0xF;
+    return (state[offset >= 8 ? 0 : 1] >> (offset * Grid.OFFSET_PER_TILE)) & 0xF;
   },
 
   // A move is invalid if the state after moving is the same as
