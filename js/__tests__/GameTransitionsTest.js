@@ -33,6 +33,30 @@ describe('move', function() {
   });
 });
 
+describe('visualize', function() {
+  it('should visualize empty states', function() {
+    expect(
+      GameTransitions.visualize([0x00000000, 0x00000000])
+    ).toEqual(
+      "0 0 0 0\n" + 
+      "0 0 0 0\n" +
+      "0 0 0 0\n" +
+      "0 0 0 0"
+    );
+  });
+
+  it('should visualize states in the right direction', function() {
+    expect(
+      GameTransitions.visualize([0xFEDCBA98, 0x76543210])
+    ).toEqual(
+      "c d e f\n" + 
+      "8 9 a b\n" +
+      "4 5 6 7\n" +
+      "0 1 2 3"
+    );
+  });
+});
+
 describe('incrementTile', function() {
   it('should throw an exception if the value is too small',
      function() {

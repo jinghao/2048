@@ -104,6 +104,19 @@ var GameTransitions = {
       }
     }
     return emptyCells;
+  },
+
+  // Mainly for testing, debugging purposes
+  visualize: function(state) {
+    var chart = [];
+    for (var y = 0; y < Grid.SIZE; ++y) {
+      var row = [];
+      for (var x = 0; x < Grid.SIZE; ++x) {
+        row[x] = GameTransitions.getValue(state, x, y).toString(16);
+      }
+      chart[Grid.SIZE - 1 - y] = row.join(' ');
+    }
+    return chart.join("\n");
   }
 };
 
