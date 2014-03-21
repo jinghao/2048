@@ -33,23 +33,23 @@ describe('move', function() {
   });
 });
 
-describe('insertTile', function() {
+describe('incrementTile', function() {
   it('should throw an exception if the value is too small',
      function() {
       expect(function() {
-        GameTransitions.insertTile([0x00000000, 0x00000000], 0, 0, 0);
+        GameTransitions.incrementTile([0x00000000, 0x00000000], 0, 0, 0);
       }).toThrow();
      });
-  it('should throw an exception if the value is too big',
+  it('should throw an exception if the given value is too big',
      function() {
       expect(function() {
-        GameTransitions.insertTile([0x00000000, 0x00000000], 16, 0, 0);
+        GameTransitions.incrementTile([0x00000000, 0x00000000], 16, 0, 0);
       }).toThrow();
      });
-  it('should throw an exception if there is already a tile at the position',
+  it('should throw an exception if total value is too big',
     function() {
       expect(function() {
-        GameTransitions.insertTile([0x00000000, 0x00000001], 2, 0, 0);
+        GameTransitions.incrementTile([0x00000000, 0x00000001], 15, 0, 0);
       }).toThrow();
     });
 
@@ -96,7 +96,7 @@ describe('insertTile', function() {
         // clone it
         var modifiedState = testInput.state.slice(0);
 
-        GameTransitions.insertTile(
+        GameTransitions.incrementTile(
           modifiedState,
           testInput.val,
           testInput.xpos,

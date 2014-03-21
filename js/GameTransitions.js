@@ -34,10 +34,10 @@ var GameTransitions = {
         if (valueAtPos) {
           if (isVerticalMove) {
             lastPos += dj;
-            GameTransitions.insertTile(newState, valueAtPos, x, lastPos)
+            GameTransitions.incrementTile(newState, valueAtPos, x, lastPos)
           } else {
             lastPos += dj;
-            GameTransitions.insertTile(newState, valueAtPos, lastPos, y);
+            GameTransitions.incrementTile(newState, valueAtPos, lastPos, y);
           }
 
           lastPosValue = valueAtPos; // not used yet
@@ -48,16 +48,17 @@ var GameTransitions = {
     return newState;
   },
 
-  // Insert a tile at position x, y. Mutates
-  insertTile: function(state, val, x, y) {
-    if (val <= 0 || val > Grid.MAX_CELL_VAL) {
+  // Insert a tile at position x, y, or increments the value if one 
+  // already exists.
+  // Mutates given state.
+  incrementTile: function(state, val, x, y) {
+    if (val <= 0) {
       throw 'Cannot insert tile with value ' + val;
     }
 
-    if (GameTransitions.getValue(state, x, y) != 0) {
+    if (GameTransitions.getValue(state, x, y) + val > Grid.MAX_CELL_VAL) {
       throw 'Tile ' + GameTransitions.getValue(state, x, y) +
-        ' already in position ' + x + ', ' + y +
-        '; can\'t insert tile ' + val;
+        ' is too large; can\'t insert tile ' + val;
     }
 
     var offset = GameTransitions._getOffset(x, y);
