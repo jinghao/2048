@@ -18,7 +18,7 @@ describe('move', function() {
       direction: Directions.RIGHT,
       expectedState: [0x10000000, 0x00000000]
     },
-    { // no change, everything already on top-right corner
+    { // no merging, everything shifts to top
       state: [0x10020600, 0x00000040],
       direction: Directions.UP,
       expectedState: [0x16420000, 0x00000000]
