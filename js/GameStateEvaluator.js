@@ -1,13 +1,11 @@
 var GameTransitions = require('./GameTransitions');
 var Grid = require('./Grid');
 
-var GRID_SIZE = 4; // Put this somewhere meaningful too
-
 var maxState = [0x0, 0x0];
 
 // Make every other cell the max value
-for (var x = 0; x < GRID_SIZE; x++) {
-  for (var y = 0; y < GRID_SIZE; y++) {
+for (var x = 0; x < Grid.SIZE; x++) {
+  for (var y = 0; y < Grid.SIZE; y++) {
     if ((Math.abs(x - y) % 2) == 1) {
       GameTransitions.insertTile(
         maxState,

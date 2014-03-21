@@ -1,8 +1,6 @@
 var Directions = require('./Directions');
 var Grid = require('./Grid');  // Merely to get some constants.
 
-var GRID_SIZE = 4;  // TO-DO: Put this somewhere meaningful.
-
 var GameTransitions = {
   move: function(currentState, direction) {
     var newState = [0, 0];
@@ -17,18 +15,18 @@ var GameTransitions = {
     var dj = backwards ? -1 : 1;
 
     // Loop in direction perpendicular to "direction". Can be in any order
-    for (var i = 0; i < GRID_SIZE; ++i) {
-      var lastPos = backwards ? GRID_SIZE : -1;
+    for (var i = 0; i < Grid.SIZE; ++i) {
+      var lastPos = backwards ? Grid.SIZE : -1;
       var lastPosValue = null; // not used yet
 
-      for (var j = 0; j < GRID_SIZE; ++j) {
+      for (var j = 0; j < Grid.SIZE; ++j) {
         var x, y;
         if (isVerticalMove) {
           x = i;
-          y = backwards ? GRID_SIZE - 1 - j : j;
+          y = backwards ? Grid.SIZE - 1 - j : j;
         } else {
           y = i;
-          x = backwards ? GRID_SIZE - 1 - j : j;
+          x = backwards ? Grid.SIZE - 1 - j : j;
         }
 
         var valueAtPos = GameTransitions.getValue(currentState, x, y);
@@ -62,7 +60,7 @@ var GameTransitions = {
         '; can\'t insert tile ' + val;
     }
 
-    var offset = y * GRID_SIZE + x;
+    var offset = y * Grid.SIZE + x;
 
     if (offset >= Grid.CELLS_PER_STATE) {
       state[0] += (val * Math.pow(Grid.MAX_CELL_VAL + 1,
@@ -73,7 +71,7 @@ var GameTransitions = {
   },
 
   getValue: function(state, xpos, ypos) {
-    var offset = (ypos * GRID_SIZE + xpos);
+    var offset = (ypos * Grid.SIZE + xpos);
 
     return (state[offset >= 8 ? 0 : 1] >> (offset * Grid.OFFSET_PER_TILE)) & 0xF;
   },
@@ -90,8 +88,8 @@ var GameTransitions = {
   // ie: [[x1, y1], [x2, y2]]
   getEmptyCells: function(state) {
     var emptyCells = [];
-    for (var x = 0; x < GRID_SIZE; x++) {
-      for (var y = 0; y < GRID_SIZE; y++) {
+    for (var x = 0; x < Grid.SIZE; x++) {
+      for (var y = 0; y < Grid.SIZE; y++) {
         if (GameTransitions.getValue(state, x, y) == 0) {
           emptyCells.push([x, y]);
         }

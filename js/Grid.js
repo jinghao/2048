@@ -122,5 +122,6 @@ Grid.prototype.getState = function() {
 Grid.CELLS_PER_STATE = 8;
 Grid.OFFSET_PER_TILE = 4;
 Grid.MAX_CELL_VAL = (1 << Grid.OFFSET_PER_TILE) - 1;
+Grid.SIZE = 4;
 
 module.exports = Grid;
