@@ -32,15 +32,19 @@ var GameTransitions = {
         var valueAtPos = GameTransitions.getValue(currentState, x, y);
 
         if (valueAtPos) {
-          if (isVerticalMove) {
-            lastPos += dj;
-            GameTransitions.incrementTile(newState, valueAtPos, x, lastPos)
+          if (valueAtPos === lastPosValue) {
+            valueAtPos = 1; // the amount to increment the tile value by
+            lastPosValue = null;
           } else {
             lastPos += dj;
-            GameTransitions.incrementTile(newState, valueAtPos, lastPos, y);
+            lastPosValue = valueAtPos;
           }
 
-          lastPosValue = valueAtPos; // not used yet
+          if (isVerticalMove) {
+            GameTransitions.incrementTile(newState, valueAtPos, x, lastPos)
+          } else {
+            GameTransitions.incrementTile(newState, valueAtPos, lastPos, y);
+          }
         }
       }
     }

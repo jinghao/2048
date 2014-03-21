@@ -3,32 +3,60 @@ var Directions = require('../Directions');
 
 describe('move', function() {
   [
-    { // nothing to do
+    { 
+      testName: 'nothing to do',
       state: [0x00000000, 0x00000000],
       direction: Directions.UP,
       expectedState: [0x00000000, 0x00000000]
     },
-    { // no change, everything already on top-right corner
+    { 
+      testName: 'no change, everything already on top-right corner',
       state: [0x10000000, 0x00000000],
       direction: Directions.UP,
       expectedState: [0x10000000, 0x00000000]
     },
-    { // no change, everything already on top-right corner
+    { 
+      testName: 'no change, everything already on top-right corner',
       state: [0x10000000, 0x00000000],
       direction: Directions.RIGHT,
       expectedState: [0x10000000, 0x00000000]
     },
-    { // no merging, everything shifts to top
+    { 
+      testName: 'no merging, everything shifts to top',
       state: [0x10020600, 0x00000040],
       direction: Directions.UP,
       expectedState: [0x16420000, 0x00000000]
+    },
+    { 
+      testName: 'Merging to the right, packed together',
+      state: [0x11000000, 0x00000000],
+      direction: Directions.RIGHT,
+      expectedState: [0x20000000, 0x00000000]
+    },
+    { 
+      testName: 'Merging to the right, spread apart',
+      state: [0x02200000, 0x00000000],
+      direction: Directions.RIGHT,
+      expectedState: [0x30000000, 0x00000000]
+    },
+    { 
+      testName: 'Some merging, some not',
+      state: [0x02230000, 0x00000000],
+      direction: Directions.RIGHT,
+      expectedState: [0x33000000, 0x00000000]
     }
   ].forEach(function(testInput) {
-    it('test', function() {
-      expect(GameTransitions.move(
+    it(testInput.testName, function() {
+      var actualNewState = GameTransitions.move(
         testInput.state,
         testInput.direction
-      )).toEqual(testInput.expectedState);
+      );
+
+      expect(actualNewState).toEqual(
+        testInput.expectedState,
+        GameTransitions.visualize(actualNewState),
+        GameTransitions.visualize(testInput.expectedState)
+      );
     });
   });
 });
