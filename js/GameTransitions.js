@@ -60,7 +60,7 @@ var GameTransitions = {
         '; can\'t insert tile ' + val;
     }
 
-    var offset = this._getOffset(x, y);
+    var offset = GameTransitions._getOffset(x, y);
 
     if (offset >= Grid.CELLS_PER_STATE) {
       state[0] += val * Math.pow(
@@ -77,7 +77,7 @@ var GameTransitions = {
   },
 
   getValue: function(state, xpos, ypos) {
-    var offset = this._getOffset(xpos, ypos);
+    var offset = GameTransitions._getOffset(xpos, ypos);
 
     return (state[offset >= Grid.CELLS_PER_STATE ? 0 : 1] 
       >> (offset * Grid.OFFSET_PER_TILE)) & 0xF;
