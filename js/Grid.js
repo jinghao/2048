@@ -108,9 +108,9 @@ Grid.prototype.getState = function() {
       var offset = stateY * this.size + stateX;
 
       if (offset < Grid.CELLS_PER_STATE) {
-        state2 += (val * Math.pow(Grid.MAX_CELL_VAL, offset));
+        state2 += (val * Math.pow(Grid.MAX_CELL_VAL + 1, offset));
       } else {
-        state1 += (val * Math.pow(Grid.MAX_CELL_VAL, offset - Grid.CELLS_PER_STATE));
+        state1 += (val * Math.pow(Grid.MAX_CELL_VAL + 1, offset - Grid.CELLS_PER_STATE));
       }
     }
   }
@@ -120,6 +120,6 @@ Grid.prototype.getState = function() {
 
 // TODO: Move to other file
 Grid.CELLS_PER_STATE = 8;
-Grid.MAX_CELL_VAL = 16;
+Grid.MAX_CELL_VAL = 15;
 
 module.exports = Grid;
