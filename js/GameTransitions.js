@@ -60,20 +60,27 @@ var GameTransitions = {
         '; can\'t insert tile ' + val;
     }
 
-    var offset = y * Grid.SIZE + x;
+    var offset = this._getOffset(x, y);
 
     if (offset >= Grid.CELLS_PER_STATE) {
-      state[0] += (val * Math.pow(Grid.MAX_CELL_VAL + 1,
-                                    offset - Grid.CELLS_PER_STATE));
+      state[0] += val * Math.pow(
+        Grid.MAX_CELL_VAL + 1,
+        offset - Grid.CELLS_PER_STATE
+      );
     } else {
-      state[1] += (val * Math.pow(Grid.MAX_CELL_VAL + 1, offset));
+      state[1] += val * Math.pow(Grid.MAX_CELL_VAL + 1, offset);
     }
   },
 
-  getValue: function(state, xpos, ypos) {
-    var offset = (ypos * Grid.SIZE + xpos);
+  _getOffset: function(x, y) {
+    return y * Grid.SIZE + x;
+  },
 
-    return (state[offset >= 8 ? 0 : 1] >> (offset * Grid.OFFSET_PER_TILE)) & 0xF;
+  getValue: function(state, xpos, ypos) {
+    var offset = this._getOffset(xpos, ypos);
+
+    return (state[offset >= Grid.CELLS_PER_STATE ? 0 : 1] 
+      >> (offset * Grid.OFFSET_PER_TILE)) & 0xF;
   },
 
   // A move is invalid if the state after moving is the same as

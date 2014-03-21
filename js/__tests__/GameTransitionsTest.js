@@ -81,6 +81,13 @@ describe('insertTile', function() {
       xpos: 0,
       ypos: 0,
       expectedState: [0x00000000, 0x0000000f]
+    },
+    { // adding a large tile to the extreme left
+      state: [0x00000000, 0xF0000000],
+      val: 15,
+      xpos: 3,
+      ypos: 3,
+      expectedState: [0xF0000000, 0xF0000000]
     }
   ].forEach(function(testInput) {
     it('tests ' + testInput.state[0].toString(16) + ' ' +
