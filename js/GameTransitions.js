@@ -6,7 +6,7 @@ var GameTransitions = {
     var newState = [0, 0];
 
     // should iterate toward the origin
-    var backwards = 
+    var backwards =
       direction === Directions.UP || direction === Directions.RIGHT;
 
     var isVerticalMove =
@@ -52,7 +52,7 @@ var GameTransitions = {
     return newState;
   },
 
-  // Insert a tile at position x, y, or increments the value if one 
+  // Insert a tile at position x, y, or increments the value if one
   // already exists.
   // Mutates given state.
   incrementTile: function(state, val, x, y) {
@@ -84,7 +84,7 @@ var GameTransitions = {
   getValue: function(state, xpos, ypos) {
     var offset = GameTransitions._getOffset(xpos, ypos);
 
-    return (state[offset >= Grid.CELLS_PER_STATE ? 0 : 1] 
+    return (state[offset >= Grid.CELLS_PER_STATE ? 0 : 1]
       >> (offset * Grid.OFFSET_PER_TILE)) & 0xF;
   },
 
