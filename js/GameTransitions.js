@@ -121,7 +121,13 @@ var GameTransitions = {
       chart[Grid.SIZE - 1 - y] = row.join(' ');
     }
     return chart.join("\n");
-  }
+  },
+
+  // [val, chance]
+  potentialRandomTiles: [
+    [1, .9],
+    [2, .1]
+  ]
 };
 
 module.exports = GameTransitions;
