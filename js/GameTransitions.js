@@ -33,7 +33,7 @@ var GameTransitions = {
 
         if (valueAtPos) {
           if (valueAtPos === lastPosValue) {
-            valueAtPos = 1; // the amount to increment the tile value by
+            valueAtPos = valueAtPos + 1;
             lastPosValue = null;
           } else {
             lastPos += dj;
@@ -41,9 +41,9 @@ var GameTransitions = {
           }
 
           if (isVerticalMove) {
-            GameTransitions.incrementTile(newState, valueAtPos, x, lastPos)
+            GameTransitions.setTile(newState, valueAtPos, x, lastPos)
           } else {
-            GameTransitions.incrementTile(newState, valueAtPos, lastPos, y);
+            GameTransitions.setTile(newState, valueAtPos, lastPos, y);
           }
         }
       }
@@ -52,28 +52,31 @@ var GameTransitions = {
     return newState;
   },
 
-  // Insert a tile at position x, y, or increments the value if one
-  // already exists.
+  // Insert a tile at position x, y
   // Mutates given state.
-  incrementTile: function(state, val, x, y) {
-    if (val <= 0) {
-      throw 'Cannot insert tile with value ' + val;
+  setTile: function(state, newValue, x, y) {
+    if (newValue <= 0) {
+      throw 'Cannot insert tile with value ' + newValue;
     }
 
-    if (GameTransitions.getValue(state, x, y) + val > Grid.MAX_CELL_VAL) {
-      throw 'Tile ' + GameTransitions.getValue(state, x, y) +
-        ' is too large; can\'t insert tile ' + val;
+    var currentValue = GameTransitions.getValue(state, x, y);
+
+    if (newValue > Grid.MAX_CELL_VAL) {
+      throw 'Tile ' + currentValue +
+        ' is too large; can\'t insert tile ' + newValue;
     }
+
+    var difference = newValue - currentValue
 
     var offset = GameTransitions._getOffset(x, y);
 
     if (offset >= Grid.CELLS_PER_STATE) {
-      state[0] += val * Math.pow(
+      state[0] += difference * Math.pow(
         Grid.MAX_CELL_VAL + 1,
         offset - Grid.CELLS_PER_STATE
       );
     } else {
-      state[1] += val * Math.pow(Grid.MAX_CELL_VAL + 1, offset);
+      state[1] += difference * Math.pow(Grid.MAX_CELL_VAL + 1, offset);
     }
   },
 

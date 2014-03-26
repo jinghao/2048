@@ -7,7 +7,7 @@ var maxState = [0x0, 0x0];
 for (var x = 0; x < Grid.SIZE; x++) {
   for (var y = 0; y < Grid.SIZE; y++) {
     if ((Math.abs(x - y) % 2) == 1) {
-      GameTransitions.incrementTile(
+      GameTransitions.setTile(
         maxState,
         Grid.MAX_CELL_VAL,
         x,

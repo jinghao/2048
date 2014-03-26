@@ -85,27 +85,30 @@ describe('visualize', function() {
   });
 });
 
-describe('incrementTile', function() {
+describe('setTile', function() {
   it('should throw an exception if the value is too small',
-     function() {
-      expect(function() {
-        GameTransitions.incrementTile([0x00000000, 0x00000000], 0, 0, 0);
-      }).toThrow();
-     });
-  it('should throw an exception if the given value is too big',
-     function() {
-      expect(function() {
-        GameTransitions.incrementTile([0x00000000, 0x00000000], 16, 0, 0);
-      }).toThrow();
-     });
-  it('should throw an exception if total value is too big',
     function() {
       expect(function() {
-        GameTransitions.incrementTile([0x00000000, 0x00000001], 15, 0, 0);
+        GameTransitions.setTile([0x00000000, 0x00000000], 0, 0, 0);
       }).toThrow();
-    });
+    }
+  );
+  it('should throw an exception if the given value is too big',
+    function() {
+      expect(function() {
+        GameTransitions.setTile([0x00000000, 0x00000000], 16, 0, 0);
+      }).toThrow();
+    }
+  );
 
   [
+    {
+      state: [0x00000000, 0x00000005],
+      val: 15,
+      xpos: 0,
+      ypos: 0,
+      expectedState: [0x00000000, 0x0000000F]
+    },
     {
       state: [0x00000000, 0x00000000],
       val: 1,
@@ -148,7 +151,7 @@ describe('incrementTile', function() {
         // clone it
         var modifiedState = testInput.state.slice(0);
 
-        GameTransitions.incrementTile(
+        GameTransitions.setTile(
           modifiedState,
           testInput.val,
           testInput.xpos,
